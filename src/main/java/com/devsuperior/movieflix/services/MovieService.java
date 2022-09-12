@@ -3,6 +3,8 @@ package com.devsuperior.movieflix.services;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,7 +25,15 @@ public class MovieService {
 	public MovieDTO findById(Long id) {
 		Optional<Movie> obj = repository.findById(id);
 		Movie movie = obj.orElseThrow(() -> new ResourceNotFoundException("Resource not found"));
-		GenreDTO genre = new GenreDTO(movie.getGenre());
-		return new MovieDTO(movie, genre);
+		GenreDTO dto = new GenreDTO(movie.getGenre());
+		return new MovieDTO(movie, dto);
 	}
+	
+	@Transactional(readOnly = true)
+	public Page<MovieDTO> findByGenre(Long genreId, Pageable pageable) {
+		genreId = (genreId == 0) ? null : genreId;
+		Page<Movie> page = repository.findByGenreId(genreId, pageable);
+		return page.map(x -> new MovieDTO(x, new GenreDTO(x.getGenre())));
+	}
+
 }
