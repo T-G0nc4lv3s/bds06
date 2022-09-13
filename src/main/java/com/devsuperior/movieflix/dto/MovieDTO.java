@@ -2,17 +2,34 @@ package com.devsuperior.movieflix.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
+
 import com.devsuperior.movieflix.entities.Movie;
 
 public class MovieDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private Long id;
+	
+	@Size(min = 5, max = 60, message = "O campo deve ter entre 5 e 60 caracteres")
+	@NotBlank(message = "Campo requerido")
 	private String title;
+	
+	@Size(min = 5, max = 60, message = "O campo deve ter entre 5 e 60 caracteres")
 	private String subTitle;
+	
+	@Positive(message = "Deve ser um valor positivo")
 	private Integer year;
+	
 	private String imgUrl;
+	
+	@NotBlank
 	private String synopsis;
+	
+	@NotNull(message = "Campo requerido")
 	private GenreDTO genre;
 	
 	public MovieDTO() {

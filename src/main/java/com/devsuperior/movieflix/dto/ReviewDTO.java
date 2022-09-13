@@ -2,14 +2,24 @@ package com.devsuperior.movieflix.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+
 import com.devsuperior.movieflix.entities.Review;
 
 public class ReviewDTO  implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private Long id;
+	
+	@NotBlank(message = "Campo requerido")
 	private String text;
+	
+	@Positive(message = "Deve ser um valor positivo")
+	@NotNull(message = "Campo requerido")
 	private Long movieId;
+	
 	private UserDTO user;
 	
 	public ReviewDTO() {

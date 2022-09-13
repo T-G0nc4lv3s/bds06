@@ -4,11 +4,14 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.constraints.NotNull;
+
 import com.devsuperior.movieflix.entities.User;
 
 public class UserFullDTO extends UserDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
+	@NotNull(message = "Campo requerido")
 	private List<RoleDTO> roles = new ArrayList<>();
 	
 	public UserFullDTO() {
