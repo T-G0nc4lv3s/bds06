@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.devsuperior.movieflix.dto.MovieDTO;
 import com.devsuperior.movieflix.dto.ReviewDTO;
 import com.devsuperior.movieflix.services.MovieService;
+import com.devsuperior.movieflix.services.ReviewService;
 
 @RestController
 @RequestMapping("/movies")
@@ -25,6 +26,8 @@ public class MovieController {
 	@Autowired
 	private MovieService service;
 	
+	@Autowired
+	private ReviewService reviewService;
 	
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<MovieDTO> findById(@PathVariable Long id){
@@ -45,7 +48,7 @@ public class MovieController {
 	
 	@GetMapping(value = "/{id}/reviews")
 	public ResponseEntity<List<ReviewDTO>> findReview(@PathVariable Long id){
-		List<ReviewDTO>  list = service.findReview(id);
+		List<ReviewDTO>  list = reviewService.findReview(id);
 		return ResponseEntity.ok(list);
 	}
 	

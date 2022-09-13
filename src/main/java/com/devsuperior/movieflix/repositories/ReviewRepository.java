@@ -13,6 +13,6 @@ public interface ReviewRepository extends JpaRepository<Review, Long>{
 			+ "FROM Review obj "
 			+ "JOIN FETCH obj.movie "
 			+ "JOIN FETCH obj.user "
-			+ "WHERE obj.user.id = :id")
+			+ "WHERE obj.movie.id = :id")
 	List<Review> findReview(Long id);
 }
